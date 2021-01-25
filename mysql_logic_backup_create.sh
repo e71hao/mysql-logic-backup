@@ -77,7 +77,7 @@ getopt_method "$@"
 [ ! $host ] && host=localhost
 [ ! $mysql_dump ] && mysql_dump=/bin/mysqldump
 [ ! $mysql_backup_dir ] && mysql_backup_dir=`dirname $0`/..  &&  mysql_backup_dir=`(cd "$BASEDIR"; pwd)`
-[ ! $remaining_date ] && remaining_day=30
+[ ! $remaining_day ] && remaining_day=30
 
  mkdir -p $mysql_backup_dir
 if [ $? != 0 ] ; then 

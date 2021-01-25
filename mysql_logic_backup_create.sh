@@ -93,7 +93,7 @@ sed -i 's#^socket=.*#socket='$socket'#g'  $mysql_logic_backup_file
 sed -i 's#^mysql_instance=.*#mysql_instance='$mysql_instance'#g'  $mysql_logic_backup_file
 sed -i 's#^mysql_dump=.*#mysql_dump='$mysql_dump'#g'  $mysql_logic_backup_file
 sed -i 's#^mysql_backup_dir=.*#mysql_backup_dir='$mysql_backup_dir'#g'  $mysql_logic_backup_file
-sed -i 's#^remaining_date=.*#remaining_date='$remaining_date'#g'  $mysql_logic_backup_file
+sed -i 's#^remaining_day=.*#remaining_day='$remaining_day'#g'  $mysql_logic_backup_file
 
 crontab -l > confi123i ; echo "7 3  * * * $mysql_logic_backup_file" >> confi123i && crontab confi123i && rm -f confi123i
 

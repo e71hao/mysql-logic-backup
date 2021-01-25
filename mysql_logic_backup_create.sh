@@ -52,6 +52,10 @@ do
             remaining_day=$2
             shift
             ;;
+         --mysql_instance)
+            mysql_instance=$2
+            shift
+            ;;   
         --help)
             ;;
         --)

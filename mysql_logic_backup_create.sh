@@ -83,7 +83,8 @@ getopt_method "$@"
 if [ $? != 0 ] ; then 
  echo "create dir $mysql_backup_dir fail  " ; exit 1
 fi
-mysql_logic_backup_file=${mysql_backup_dir}/b.sh
+wget  https://raw.githubusercontent.com/e71hao/mysql-logic-backup/master/mysql_logic_backup.sh
+mysql_logic_backup_file=${mysql_backup_dir}/mysql_logic_backup.sh
 sed -i 's#^user=.*#user='$user'#g'  $mysql_logic_backup_file
 sed -i 's#^password=.*#password='$password'#g'  $mysql_logic_backup_file
 sed -i 's#^port=.*#port='$port'#g'  $mysql_logic_backup_file

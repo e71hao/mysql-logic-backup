@@ -9,7 +9,7 @@ mysql_logic_backup usage :
   --remaining_day <interger> 
 '
 getopt_method(){
-ARGS=`getopt -o S:,p:,P:,h:,u:  --long socket:,password:,port:,host:,user:,mysql_dump:,mysql_backup_dir:,remaining_day:,help -n "$0" -- "$@"`
+ARGS=`getopt -o S:,p:,P:,h:,u:  --long socket:,password:,port:,host:,user:,mysql_dump:,mysql_backup_dir:,remaining_day:,mysql_instance:,help -n "$0" -- "$@"`
 if [ $? != 0 ];then
         echo $usage_str
         exit 1

@@ -1,3 +1,8 @@
+#!/bin/bash
+#author: alice
+#time:2021/1/19
+#function: add crontab job .database logic backup for recovery every day and delete dumpfile 30 day ago。create dir $mysql_backup_dir.
+
 usage_str=' 
 mysql_logic_backup usage :
   --mysql_dump </you/mysqldump/file>\n

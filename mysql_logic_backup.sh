@@ -1,7 +1,7 @@
 #!/bin/bash
 #author: alice
 #time:2021/1/19
-#function: add crontab job .database logic backup for recovery ,every day and delete dumpfile 30 day ago。create dir $mysql_backup_dir.
+#function: add crontab job .database logic backup for recovery every day and delete dumpfile 30 day ago。create dir $mysql_backup_dir.
 #下面脚本是为了在删除表，删除库，意外删除错误数据情况下快速恢复库的备份。关键脚本是mysqldump+binlog2sql达到恢复任意时间点要求。
 source  /etc/profile  
 source ~/.bash_profile

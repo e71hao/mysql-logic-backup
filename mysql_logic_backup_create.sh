@@ -1,3 +1,8 @@
+#!/bin/bash
+#author: alice
+#time:2021/1/19
+#function: add crontab job .database logic backup for recovery every day and delete dumpfile 30 day ago。create dir $mysql_backup_dir.
+
 usage_str=' 
 mysql_logic_backup usage :
   --mysql_dump </you/mysqldump/file>\n
@@ -9,7 +14,7 @@ mysql_logic_backup usage :
   --remaining_day <interger> 
 '
 getopt_method(){
-ARGS=`getopt -o S:,p:,P:,h:,u:  --long socket:,password:,port:,host:,user:,mysql_dump:,mysql_backup_dir:,remaining_day:,help -n "$0" -- "$@"`
+ARGS=`getopt -o S:,p:,P:,h:,u:  --long socket:,password:,port:,host:,user:,mysql_dump:,mysql_backup_dir:,remaining_day:,mysql_instance:,help -n "$0" -- "$@"`
 if [ $? != 0 ];then
         echo $usage_str
         exit 1
@@ -52,6 +57,10 @@ do
             remaining_day=$2
             shift
             ;;
+         --mysql_instance)
+            mysql_instance=$2
+            shift
+            ;;   
         --help)
             ;;
         --)
@@ -77,13 +86,13 @@ getopt_method "$@"
 [ ! $host ] && host=localhost
 [ ! $mysql_dump ] && mysql_dump=/bin/mysqldump
 [ ! $mysql_backup_dir ] && mysql_backup_dir=`dirname $0`/..  &&  mysql_backup_dir=`(cd "$BASEDIR"; pwd)`
-[ ! $remaining_date ] && remaining_day=30
+[ ! $remaining_day ] && remaining_day=30
 
  mkdir -p $mysql_backup_dir
 if [ $? != 0 ] ; then 
  echo "create dir $mysql_backup_dir fail  " ; exit 1
 fi
-wget  https://raw.githubusercontent.com/e71hao/mysql-logic-backup/master/mysql_logic_backup.sh
+cd $mysql_backup_dir ;  wget  https://raw.githubusercontent.com/e71hao/mysql-logic-backup/master/mysql_logic_backup.sh  ; chmod u+x mysql_logic_backup.sh
 mysql_logic_backup_file=${mysql_backup_dir}/mysql_logic_backup.sh
 sed -i 's#^user=.*#user='$user'#g'  $mysql_logic_backup_file
 sed -i 's#^password=.*#password='$password'#g'  $mysql_logic_backup_file
@@ -93,7 +102,7 @@ sed -i 's#^socket=.*#socket='$socket'#g'  $mysql_logic_backup_file
 sed -i 's#^mysql_instance=.*#mysql_instance='$mysql_instance'#g'  $mysql_logic_backup_file
 sed -i 's#^mysql_dump=.*#mysql_dump='$mysql_dump'#g'  $mysql_logic_backup_file
 sed -i 's#^mysql_backup_dir=.*#mysql_backup_dir='$mysql_backup_dir'#g'  $mysql_logic_backup_file
-sed -i 's#^remaining_date=.*#remaining_date='$remaining_date'#g'  $mysql_logic_backup_file
+sed -i 's#^remaining_day=.*#remaining_day='$remaining_day'#g'  $mysql_logic_backup_file
 
 crontab -l > confi123i ; echo "7 3  * * * $mysql_logic_backup_file" >> confi123i && crontab confi123i && rm -f confi123i
 
